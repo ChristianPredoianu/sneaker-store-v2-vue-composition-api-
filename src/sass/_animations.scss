@@ -1,0 +1,23 @@
+.fade-enter-active {
+  animation: coming 0.5s;
+}
+.fade-leave-active {
+  animation: going 0.5s;
+}
+@keyframes going {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes coming {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
