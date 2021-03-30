@@ -1,23 +1,10 @@
-.fade-enter-active {
-  animation: coming 0.5s;
-}
-.fade-leave-active {
-  animation: going 0.5s;
-}
-@keyframes going {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
 }
 
-@keyframes coming {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
 }

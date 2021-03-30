@@ -15,7 +15,7 @@
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
     "colors": ["red", "blue", "green"],
-    "image": "nike-air-zoom.jpg"
+    "image": "/nike-air-zoom.jpg"
   },
   {
     "productId": 2,
@@ -33,7 +33,7 @@
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
     "colors": ["red", "blue", "orange"],
-    "image": "adidas-ultra.jpg"
+    "image": "/adidas-ultra.jpg"
   },
   {
     "productId": 3,
@@ -50,7 +50,7 @@
     "sole": "Textile",
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
-    "image": "adidas-slim.jpg"
+    "image": "/adidas-slim.jpg"
   },
   {
     "productId": 4,
@@ -67,7 +67,7 @@
     "sole": "Textile",
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
-    "image": "nike-jordan.jpg"
+    "image": "/nike-jordan.jpg"
   },
   {
     "productId": 5,
@@ -84,7 +84,7 @@
     "sole": "Textile",
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
-    "image": "adidas-superr.jpg"
+    "image": "/adidas-superr.jpg"
   },
   {
     "productId": 6,
@@ -101,7 +101,7 @@
     "sole": "Textile",
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
-    "image": "adidas-total.jpg"
+    "image": "/adidas-total.jpg"
   },
   {
     "productId": 7,
@@ -118,7 +118,7 @@
     "sole": "Textile",
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
-    "image": "nike-black.jpg"
+    "image": "/nike-black.jpg"
   },
   {
     "productId": 8,
@@ -135,7 +135,7 @@
     "sole": "Textile",
     "casingThickness": "Thin lining",
     "fabric": "Knitwear",
-    "image": "nike-black-woman.jpg"
+    "image": "/nike-black-woman.jpg"
   },
   {
     "productId": 9,
@@ -152,7 +152,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Leather",
-    "image": "black-dress.jpg"
+    "image": "/black-dress.jpg"
   },
   {
     "productId": 10,
@@ -169,7 +169,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Synthetics",
-    "image": "black-lady-dress.jpg"
+    "image": "/black-lady-dress.jpg"
   },
   {
     "productId": 11,
@@ -186,7 +186,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Leather",
-    "image": "brown-dress.jpg"
+    "image": "/brown-dress.jpg"
   },
   {
     "productId": 12,
@@ -203,7 +203,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Leather",
-    "image": "brown-lady-dress.jpg"
+    "image": "/brown-lady-dress.jpg"
   },
   {
     "productId": 13,
@@ -220,7 +220,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Leather",
-    "image": "dark-brown-dress.jpg"
+    "image": "/dark-brown-dress.jpg"
   },
   {
     "productId": 14,
@@ -237,7 +237,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Leather",
-    "image": "dress-men.jpg"
+    "image": "/dress-men.jpg"
   },
   {
     "productId": 15,
@@ -254,7 +254,7 @@
     "sole": "Rubber",
     "casingThickness": "Synthetics",
     "fabric": "Synthetics",
-    "image": "high-heels-dress.jpg"
+    "image": "/high-heels-dress.jpg"
   },
   {
     "productId": 16,
@@ -271,7 +271,7 @@
     "sole": "Rubber",
     "casingThickness": "Leather",
     "fabric": "Leather",
-    "image": "loafers-men.jpg"
+    "image": "/loafers-men.jpg"
   },
   {
     "productId": 17,
@@ -288,7 +288,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Synthetics",
-    "image": "red-women-nike.jpg"
+    "image": "/red-women-nike.jpg"
   },
   {
     "productId": 18,
@@ -305,7 +305,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Synthetics",
-    "image": "adidas-white-woman.jpg"
+    "image": "/adidas-white-woman.jpg"
   },
   {
     "productId": 19,
@@ -322,7 +322,7 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Synthetics",
-    "image": "red-dress-woman.jpg"
+    "image": "/red-dress-woman.jpg"
   },
   {
     "productId": 20,
@@ -339,6 +339,6 @@
     "sole": "Rubber",
     "casingThickness": "Thin lining",
     "fabric": "Synthetics",
-    "image": "red-sandals-woman.jpg"
+    "image": "/red-sandals-woman.jpg"
   }
 ]

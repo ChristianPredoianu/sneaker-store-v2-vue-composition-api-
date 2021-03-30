@@ -8,8 +8,8 @@
         <img :src="shoeDetails.image" class="img-container__image" alt />
       </div>
       <div class="details-container">
-        <h2 class="details-container__brand"></h2>
-        <h3 class="details-container__model"></h3>
+        <h2 class="details-container__brand">{{ shoeDetails.brand }}</h2>
+        <h3 class="details-container__model">{{ shoeDetails.model }}</h3>
         <p class="details-container__prodno">
           Product no: {{ shoeDetails.productno }}
         </p>
@@ -35,14 +35,20 @@
         </div>
         <h4 class="details-container__info">Material &amp; Maintanance</h4>
         <h5 class="details-container__info-item">
-          Outer Material:{{ shoeDetails.size }}
+          Outer Material:{{ shoeDetails.outerMaterial }}
         </h5>
-        <h5 class="details-container__info-item"></h5>
-        <h5 class="details-container__info-item"></h5>
         <h5 class="details-container__info-item">
-          Casing thickness:
+          Lining: {{ shoeDetails.lining }}
         </h5>
-        <h5 class="details-container__info-item">Fabric: {{}}</h5>
+        <h5 class="details-container__info-item">
+          Sole: {{ shoeDetails.sole }}
+        </h5>
+        <h5 class="details-container__info-item">
+          Casing thickness: {{ shoeDetails.casingThickness }}
+        </h5>
+        <h5 class="details-container__info-item">
+          Fabric: {{ shoeDetails.fabric }}
+        </h5>
       </div>
     </section>
   </div>
@@ -51,13 +57,14 @@
 <script>
 import NavBar from '@/components/nav/NavBar.vue';
 import SubNav from '@/components/nav/SubNav.vue';
-import jsonData from '../../public/data.json';
+import shoeData from '../../public/data.json';
 import { computed } from 'vue';
 
 export default {
   props: {
     id: String,
   },
+
   components: {
     NavBar,
     SubNav,
@@ -65,9 +72,7 @@ export default {
 
   setup(props) {
     const shoeDetails = computed(() => {
-      return jsonData.find(
-        (element) => element.productId === parseInt(props.id)
-      );
+      return shoeData.find((shoe) => shoe.productId === parseInt(props.id));
     });
     return { shoeDetails };
   },
@@ -107,6 +112,7 @@ export default {
 .details-container {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   width: 40%;
   padding: 0 3rem;
 

@@ -1,11 +1,17 @@
 <template>
   <div>
+    <h1>{{ selectedOptions }}</h1>
     <NavBar />
     <SubNav />
-    <FilterSection />
+    <FilterSection @options="setSelectedOptions" />
     <section class="shoes">
-      <Shoe v-for="shoe in shoes" :key="shoe.id" :shoe="shoe" />
+      <Shoe
+        v-for="shoe in filterShoes(selectedOptions.color, selectedOptions.size)"
+        :key="shoe.id"
+        :shoe="shoe"
+      />
     </section>
+    <!-- <button @click="filterShoes">dsadsa</button> -->
   </div>
 </template>
 
@@ -14,8 +20,8 @@ import NavBar from '@/components/nav/NavBar.vue';
 import SubNav from '@/components/nav/SubNav.vue';
 import FilterSection from '@/components/FilterSection.vue';
 import Shoe from '@/components/Shoe.vue';
-import jsonData from '../../public/data.json';
-import { ref } from 'vue';
+import shoesData from '../../public/data.json';
+import { reactive } from 'vue';
 
 export default {
   components: {
@@ -26,9 +32,29 @@ export default {
   },
 
   setup() {
-    const shoes = ref(jsonData);
+    const selectedOptions = reactive({
+      color: '',
+      size: '',
+    });
 
-    return { shoes };
+    function setSelectedOptions(value) {
+      if (value !== undefined) {
+        selectedOptions.color = value.color;
+        selectedOptions.size = value.size;
+      }
+    }
+
+    function filterShoes(color, size) {
+      if (color === 'All colors' && size === 'All sizes') {
+        return shoesData.filter((shoe) => shoe.gender === 'Men');
+      } else {
+        return shoesData.filter(
+          (shoe) => shoe.gender === 'Men' && color === shoe.color
+        );
+      }
+    }
+
+    return { setSelectedOptions, selectedOptions, filterShoes };
   },
 };
 </script>

@@ -4,7 +4,11 @@
     <section class="filters">
       <div class="colors">
         <div class="avaliable-colors">
-          <select class="avaliable-colors__select" v-model="color">
+          <select
+            class="avaliable-colors__select"
+            v-model="selectOptions.color"
+            @change="sendSelectedOptions"
+          >
             <option value="All colors">All colors</option>
             <option value="black">black</option>
             <option value="brown">brown</option>
@@ -18,7 +22,11 @@
       </div>
       <div class="sizes">
         <div class="avaliable-sizes">
-          <select class="avaliable-sizes__select" v-model="size">
+          <select
+            class="avaliable-sizes__select"
+            v-model="selectOptions.size"
+            @change="sendSelectedOptions"
+          >
             <option value="All sizes">All sizes</option>
             <option value="36">36</option>
             <option value="37">37</option>
@@ -39,14 +47,24 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { reactive, onMounted } from 'vue';
 
 export default {
-  setup() {
-    const color = ref('All colors');
-    const size = ref('All sizes');
+  setup(props, { emit }) {
+    const selectOptions = reactive({
+      color: 'All colors',
+      size: 'All sizes',
+    });
 
-    return { color, size };
+    function sendSelectedOptions() {
+      emit('options', selectOptions);
+    }
+
+    onMounted(() => {
+      sendSelectedOptions();
+    });
+
+    return { selectOptions, sendSelectedOptions };
   },
 };
 </script>
