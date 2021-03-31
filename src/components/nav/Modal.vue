@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class="modal-container">
-      <p class="modal-container__close">X</p>
+      <fa
+        icon="times"
+        type="fas"
+        class="modal-container__close"
+        @click="closeModal"
+      ></fa>
+
       <h1 class="modal-container__heading">Your Cart</h1>
       <div class="product-container">
         <img tag="img" alt class="product-container__image" />
@@ -35,7 +41,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  setup(props, { emit }) {
+    function closeModal() {
+      emit('close-modal', false);
+    }
+
+    return { closeModal };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -78,7 +92,7 @@ export default {};
     position: absolute;
     top: 2%;
     right: 5%;
-    font-size: 5rem;
+    width: 5%;
     cursor: pointer;
   }
 

@@ -21,11 +21,12 @@
           class="cart__logo"
           @click="toggleModal"
         ></fa>
+
         <span class="cart__count">{{ 5 }}</span>
       </div>
     </nav>
     <transition>
-      <Modal class="modal" v-if="isModalOpen" />
+      <Modal class="modal" v-if="isModalOpen" @close-modal="closeModal" />
     </transition>
   </div>
 </template>
@@ -40,14 +41,19 @@ export default {
   },
 
   setup() {
-    const isModalOpen = ref(false);
+    let isModalOpen = ref(false);
 
     function toggleModal() {
       isModalOpen.value = !isModalOpen.value;
-      console.log(isModalOpen.value);
     }
 
-    return { isModalOpen, toggleModal };
+    function closeModal(value) {
+      if (value !== undefined) isModalOpen.value = value;
+    }
+
+    closeModal();
+
+    return { isModalOpen, toggleModal, closeModal };
   },
 };
 </script>

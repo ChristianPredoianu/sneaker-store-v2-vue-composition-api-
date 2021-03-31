@@ -23,8 +23,7 @@ import NavBar from '@/components/nav/NavBar.vue';
 import SubNav from '@/components/nav/SubNav.vue';
 import FilterSection from '@/components/FilterSection.vue';
 import Shoe from '@/components/Shoe.vue';
-import shoesData from '../../public/data.json';
-import { reactive } from 'vue';
+import { useShoeFilter } from '@/shared-logic/useShoeFilter';
 
 export default {
   components: {
@@ -35,31 +34,11 @@ export default {
   },
 
   setup() {
-    const selectedOptions = reactive({
-      color: '',
-      size: '',
-    });
-
-    function setSelectedOptions(value) {
-      if (value !== undefined) {
-        selectedOptions.color = value.color;
-        selectedOptions.size = value.size;
-      }
-    }
-
-    function filterShoes(gender, color, size) {
-      const shoes = shoesData.filter((shoe) => shoe.gender === gender);
-      if (color === 'All colors' && size === 'All sizes') {
-        return shoes;
-      } else {
-        return shoes.filter((shoe) => {
-          return (
-            (color === 'All colors' || color === shoe.color) &&
-            (size === 'All sizes' || shoe.size.includes(size))
-          );
-        });
-      }
-    }
+    const {
+      selectedOptions,
+      setSelectedOptions,
+      filterShoes,
+    } = useShoeFilter();
 
     return { setSelectedOptions, selectedOptions, filterShoes };
   },

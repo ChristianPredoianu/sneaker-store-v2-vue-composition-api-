@@ -16,20 +16,20 @@
         <p class="details-container__price">Price: {{ shoeDetails.price }} $</p>
         <div class="cta-container">
           <form class="cta-container__form">
-            <select class="cta-container__select">
-              <option>Choose size</option>
+            <select class="cta-container__select" v-model="size">
+              <option :value="null">Choose size</option>
               <option v-for="size in shoeDetails.size" :key="size.id">{{
                 size
               }}</option></select
             >
           </form>
-          <button class="cta-container__button">
+          <button class="cta-container__button" @click="addToCart">
             Add to cart
           </button>
-          <p class="cta-container__added-message">
+          <p class="cta-container__added-message" v-if="isAddedToCart">
             Product added to cart
           </p>
-          <p class="cta-container__size-message">
+          <p class="cta-container__size-message" v-if="isSizeSelected">
             Please select a size
           </p>
         </div>
@@ -58,7 +58,7 @@
 import NavBar from '@/components/nav/NavBar.vue';
 import SubNav from '@/components/nav/SubNav.vue';
 import shoeData from '../../public/data.json';
-import { computed } from 'vue';
+import { ref, reactive, computed } from 'vue';
 
 export default {
   props: {
@@ -71,10 +71,52 @@ export default {
   },
 
   setup(props) {
+    const cartState = reactive({
+      cart: [],
+      cartCount: 0,
+      totalAmount: 0,
+    });
+
+    const size = ref(null);
+    let isAddedToCart = ref(false);
+    let isSizeSelected = ref(false);
+
     const shoeDetails = computed(() => {
       return shoeData.find((shoe) => shoe.productId === parseInt(props.id));
     });
-    return { shoeDetails };
+
+    function addToCart() {
+      if (size.value !== null) {
+        cartState.cart.push({
+          image: shoeDetails.value.image,
+          brand: shoeDetails.value.brand,
+          model: shoeDetails.value.model,
+          price: shoeDetails.value.price,
+          color: shoeDetails.value.color,
+          selectedSize: size.value,
+        });
+        cartState.cartCount += 1;
+        showCartMessage(isAddedToCart);
+      } else {
+        showCartMessage(isSizeSelected);
+      }
+    }
+
+    function showCartMessage(message) {
+      message.value = true;
+      setTimeout(() => {
+        message.value = false;
+      }, 2000);
+    }
+
+    return {
+      cartState,
+      isAddedToCart,
+      isSizeSelected,
+      shoeDetails,
+      addToCart,
+      size,
+    };
   },
 };
 </script>
