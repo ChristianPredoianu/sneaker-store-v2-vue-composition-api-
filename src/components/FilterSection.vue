@@ -60,9 +60,10 @@ export default {
       emit('options', selectOptions);
     }
 
-    onMounted(() => {
+    sendSelectedOptions();
+    /*  onMounted(() => {
       sendSelectedOptions();
-    });
+    }); */
 
     return { selectOptions, sendSelectedOptions };
   },

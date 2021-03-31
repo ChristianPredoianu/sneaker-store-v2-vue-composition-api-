@@ -2,9 +2,17 @@
   <div>
     <NavBar />
     <SubNav />
-    <FilterSection />
+    <FilterSection @options="setSelectedOptions" />
     <section class="shoes">
-      <Shoe v-for="shoe in womenShoes" :key="shoe.id" :shoe="shoe" />
+      <Shoe
+        v-for="shoe in filterShoes(
+          'Women',
+          selectedOptions.color,
+          selectedOptions.size
+        )"
+        :key="shoe.id"
+        :shoe="shoe"
+      />
     </section>
   </div>
 </template>
@@ -15,7 +23,7 @@ import SubNav from '@/components/nav/SubNav.vue';
 import FilterSection from '@/components/FilterSection.vue';
 import Shoe from '@/components/Shoe.vue';
 import shoesData from '../../public/data.json';
-import { computed } from 'vue';
+import { reactive } from 'vue';
 
 export default {
   components: {
@@ -26,11 +34,33 @@ export default {
   },
 
   setup() {
-    const womenShoes = computed(() => {
-      return shoesData.filter((shoe) => shoe.gender === 'Women');
+    const selectedOptions = reactive({
+      color: '',
+      size: '',
     });
 
-    return { womenShoes };
+    function setSelectedOptions(value) {
+      if (value !== undefined) {
+        selectedOptions.color = value.color;
+        selectedOptions.size = value.size;
+      }
+    }
+
+    function filterShoes(gender, color, size) {
+      const shoes = shoesData.filter((shoe) => shoe.gender === gender);
+      if (color === 'All colors' && size === 'All sizes') {
+        return shoes;
+      } else {
+        return shoes.filter((shoe) => {
+          return (
+            (color === 'All colors' || color === shoe.color) &&
+            (size === 'All sizes' || shoe.size.includes(size))
+          );
+        });
+      }
+    }
+
+    return { setSelectedOptions, selectedOptions, filterShoes };
   },
 };
 </script>

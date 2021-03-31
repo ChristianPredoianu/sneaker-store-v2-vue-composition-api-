@@ -6,12 +6,15 @@
     <FilterSection @options="setSelectedOptions" />
     <section class="shoes">
       <Shoe
-        v-for="shoe in filterShoes(selectedOptions.color, selectedOptions.size)"
+        v-for="shoe in filterShoes(
+          'Men',
+          selectedOptions.color,
+          selectedOptions.size
+        )"
         :key="shoe.id"
         :shoe="shoe"
       />
     </section>
-    <!-- <button @click="filterShoes">dsadsa</button> -->
   </div>
 </template>
 
@@ -44,13 +47,17 @@ export default {
       }
     }
 
-    function filterShoes(color, size) {
+    function filterShoes(gender, color, size) {
+      const shoes = shoesData.filter((shoe) => shoe.gender === gender);
       if (color === 'All colors' && size === 'All sizes') {
-        return shoesData.filter((shoe) => shoe.gender === 'Men');
+        return shoes;
       } else {
-        return shoesData.filter(
-          (shoe) => shoe.gender === 'Men' && color === shoe.color
-        );
+        return shoes.filter((shoe) => {
+          return (
+            (color === 'All colors' || color === shoe.color) &&
+            (size === 'All sizes' || shoe.size.includes(size))
+          );
+        });
       }
     }
 
