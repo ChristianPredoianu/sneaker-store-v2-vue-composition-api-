@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>{{ selectedOptions }}</h1>
     <NavBar />
     <SubNav />
     <FilterSection @options="setSelectedOptions" />
@@ -14,6 +13,16 @@
         :key="shoe.id"
         :shoe="shoe"
       />
+
+      <h1
+        v-if="
+          filterShoes('Men', selectedOptions.color, selectedOptions.size)
+            .length === 0
+        "
+        class="no-products-message"
+      >
+        No selected colors or sizes in stock
+      </h1>
     </section>
   </div>
 </template>
@@ -49,6 +58,13 @@ export default {
 .shoes {
   display: flex;
   flex-wrap: wrap;
+}
+
+.no-products-message {
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 3rem;
 }
 /* .shoe-container {
   display: flex;
