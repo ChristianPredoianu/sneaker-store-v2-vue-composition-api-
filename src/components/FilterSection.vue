@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue';
+import { reactive } from 'vue';
 
 export default {
   setup(props, { emit }) {
@@ -61,9 +61,6 @@ export default {
     }
 
     sendSelectedOptions();
-    /*  onMounted(() => {
-      sendSelectedOptions();
-    }); */
 
     return { selectOptions, sendSelectedOptions };
   },
