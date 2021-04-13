@@ -5,7 +5,7 @@
     <FilterSection @options="setSelectedOptions" />
     <section class="shoes">
       <Shoe
-        v-for="shoe in filterShoes(
+        v-for="shoe in filterShoesByGender(
           'Women',
           selectedOptions.color,
           selectedOptions.size
@@ -13,6 +13,19 @@
         :key="shoe.id"
         :shoe="shoe"
       />
+
+      <h1
+        v-if="
+          filterShoesByGender(
+            'Women',
+            selectedOptions.color,
+            selectedOptions.size
+          ).length === 0
+        "
+        class="no-products-message"
+      >
+        No selected colors or sizes in stock
+      </h1>
     </section>
   </div>
 </template>
@@ -36,10 +49,10 @@ export default {
     const {
       selectedOptions,
       setSelectedOptions,
-      filterShoes,
+      filterShoesByGender,
     } = useShoeFilter();
 
-    return { setSelectedOptions, selectedOptions, filterShoes };
+    return { setSelectedOptions, selectedOptions, filterShoesByGender };
   },
 };
 </script>
@@ -48,5 +61,9 @@ export default {
 .shoes {
   display: flex;
   flex-wrap: wrap;
+}
+
+.no-products-message {
+  @include no-products-message;
 }
 </style>

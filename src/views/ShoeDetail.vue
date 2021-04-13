@@ -3,6 +3,7 @@
     <NavBar />
     <SubNav />
     <hr />
+
     <section class="shoe-detail">
       <div class="img-container">
         <img :src="shoeDetails.image" class="img-container__image" alt />
@@ -71,13 +72,10 @@ export default {
   },
 
   setup(props) {
-    const cartState = reactive({
-      cart: [],
-      cartCount: 0,
-      totalAmount: 0,
-    });
+    let cartState = reactive([]);
+    let totalAmount = ref(0);
 
-    const size = ref(null);
+    let size = ref(null);
     let isAddedToCart = ref(false);
     let isSizeSelected = ref(false);
 
@@ -85,9 +83,12 @@ export default {
       return shoeData.find((shoe) => shoe.productId === parseInt(props.id));
     });
 
+    console.log(cartState);
+
     function addToCart() {
       if (size.value !== null) {
-        cartState.cart.push({
+        cartState.push({
+          productId: shoeDetails.value.productId,
           image: shoeDetails.value.image,
           brand: shoeDetails.value.brand,
           model: shoeDetails.value.model,
@@ -95,18 +96,31 @@ export default {
           color: shoeDetails.value.color,
           selectedSize: size.value,
         });
-        cartState.cartCount += 1;
+        totalAmount.value += shoeDetails.value.price;
         showCartMessage(isAddedToCart);
+        saveLocalCart();
+        console.log(cartState);
+        size.value = null;
       } else {
         showCartMessage(isSizeSelected);
       }
     }
-
+    console.log(totalAmount.value);
     function showCartMessage(message) {
       message.value = true;
       setTimeout(() => {
         message.value = false;
       }, 2000);
+    }
+
+    function saveLocalCart() {
+      if (localStorage.getItem('cartState') !== []) {
+        JSON.parse(localStorage.getItem('cartState'));
+        totalAmount.value = JSON.parse(localStorage.getItem('totalAmount'));
+      }
+      totalAmount.value += shoeDetails.value.price;
+      localStorage.setItem('cartState', JSON.stringify(cartState));
+      localStorage.setItem('totalAmount', JSON.stringify(totalAmount.value));
     }
 
     return {

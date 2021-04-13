@@ -9,8 +9,13 @@
       ></fa>
 
       <h1 class="modal-container__heading">Your Cart</h1>
-      <div class="product-container">
-        <img tag="img" alt class="product-container__image" />
+
+      <div
+        class="product-container"
+        v-for="(item, index) in cart"
+        :key="item.id"
+      >
+        <img tag="img" :src="item.image" alt class="product-container__image" />
         <div class="product-info">
           <ul class="product-info__list">
             <li class="product-info__list-item">Brand: {{}}</li>
@@ -20,7 +25,7 @@
             <li class="product-info__list-item">Color: {{}}</li>
           </ul>
 
-          <p class="product-info__remove">
+          <p class="product-info__remove" @click="findProductToRemove(index)">
             Remove item
           </p>
         </div>
@@ -41,13 +46,29 @@
 </template>
 
 <script>
+import { ref, reactive, computed } from 'vue';
+
 export default {
   setup(props, { emit }) {
+    let cart = reactive(JSON.parse(localStorage.getItem('cartState')));
+
     function closeModal() {
       emit('close-modal', false);
     }
 
-    return { closeModal };
+    function findProductToRemove(index) {
+      if (localStorage.getItem('cartState') !== []) {
+        const found = cart.indexOf(index);
+        console.log(found);
+        cart.splice(found, 1);
+
+        localStorage.setItem('cartState', JSON.stringify(cart));
+      } else {
+        localStorage.clear();
+      }
+    }
+
+    return { closeModal, cart, findProductToRemove };
   },
 };
 </script>
@@ -69,10 +90,10 @@ export default {
 .modal-container {
   @include flex(flex, column, start, center);
   position: absolute;
-  top: 10vh;
-  right: 25%;
-  width: 50vw;
-  height: 85vh;
+  top: 7rem;
+  right: 20%;
+  width: 55vw;
+  height: 90vh;
   z-index: 100;
   border: 0.2rem solid $color-primary;
   background-color: #f3f3f3;
@@ -178,6 +199,7 @@ export default {
   }
 
   &__remove {
+    color: #f11010;
     margin-top: 1rem;
     font-size: 1.8rem;
     cursor: pointer;

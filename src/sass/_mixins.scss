@@ -28,6 +28,13 @@
   transform: translate(-50%, -10%);
 }
 
+@mixin no-products-message {
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
 // MEDIA QUERY MANAGER
 /*
   0-600px:      Phone

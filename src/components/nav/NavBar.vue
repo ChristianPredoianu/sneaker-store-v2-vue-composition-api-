@@ -13,7 +13,6 @@
           <li class="nav-list__item">Women</li>
         </router-link>
       </ul>
-
       <div class="cart">
         <fa
           icon="cart-plus"
@@ -22,7 +21,9 @@
           @click="toggleModal"
         ></fa>
 
-        <span class="cart__count">{{ 5 }}</span>
+        <span class="cart__count">{{
+          cartCount !== 0 ? cartCount.length : cartCount
+        }}</span>
       </div>
     </nav>
     <transition>
@@ -42,6 +43,16 @@ export default {
 
   setup() {
     let isModalOpen = ref(false);
+    let cartCount = ref(0);
+
+    //Since LocalStorage isn't reactive and Vue only watches data in components
+    //This hack is not so pretty but gets the value from localstorage every x seconds
+    //Vuex would be an alternative for persisting cart state
+    /*  setInterval(() => {
+      localStorage.getItem('cartState') !== null
+        ? (cartCount.value = JSON.parse(localStorage.getItem('cartState')))
+        : (cartCount.value = 0);
+    }, 1000); */
 
     function toggleModal() {
       isModalOpen.value = !isModalOpen.value;
@@ -53,7 +64,7 @@ export default {
 
     closeModal();
 
-    return { isModalOpen, toggleModal, closeModal };
+    return { isModalOpen, toggleModal, closeModal, cartCount };
   },
 };
 </script>

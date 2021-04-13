@@ -3,9 +3,30 @@
     <NavBar />
     <SubNav />
     <FilterSection @options="setSelectedOptions" />
-    <!--  <Shoe /> -->
-    <h1>{{ selectedOptions }}</h1>
-    <h1>{{ filterSneakers() }}</h1>
+    <section class="shoes">
+      <Shoe
+        v-for="shoe in filterShoesByType(
+          'sneakers',
+          selectedOptions.color,
+          selectedOptions.size
+        )"
+        :key="shoe.id"
+        :shoe="shoe"
+      />
+
+      <h1
+        v-if="
+          filterShoesByType(
+            'sneakers',
+            selectedOptions.color,
+            selectedOptions.size
+          ).length === 0
+        "
+        class="no-products-message"
+      >
+        No selected colors or sizes in stock
+      </h1>
+    </section>
   </div>
 </template>
 
@@ -14,8 +35,8 @@ import NavBar from '@/components/nav/NavBar.vue';
 import SubNav from '@/components/nav/SubNav.vue';
 import FilterSection from '@/components/FilterSection.vue';
 import Shoe from '@/components/Shoe.vue';
-import shoesData from '../../public/data.json';
 import { useShoeFilter } from '@/shared-logic/useShoeFilter';
+
 export default {
   components: {
     NavBar,
@@ -25,30 +46,24 @@ export default {
   },
 
   setup() {
-    const { selectedOptions, setSelectedOptions } = useShoeFilter();
+    const {
+      selectedOptions,
+      setSelectedOptions,
+      filterShoesByType,
+    } = useShoeFilter();
 
-    function filterSneakers() {
-      const shoes = shoesData.filter((shoe) => shoe.type === 'sneakers');
-      if (
-        selectedOptions.color === 'All colors' &&
-        selectedOptions.size === 'All sizes'
-      )
-        return shoes;
-      else {
-        return shoes.filter((shoe) => {
-          return (
-            (selectedOptions.color === 'All colors' ||
-              selectedOptions.color === shoe.color) &&
-            (selectedOptions.size === 'All sizes' ||
-              shoe.size.includes(selectedOptions.size))
-          );
-        });
-      }
-    }
-
-    return { selectedOptions, setSelectedOptions, filterSneakers };
+    return { selectedOptions, setSelectedOptions, filterShoesByType };
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.shoes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.no-products-message {
+  @include no-products-message;
+}
+</style>
