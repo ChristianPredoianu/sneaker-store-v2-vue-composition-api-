@@ -59,7 +59,7 @@
 import NavBar from '@/components/nav/NavBar.vue';
 import SubNav from '@/components/nav/SubNav.vue';
 import shoeData from '../../public/data.json';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
 
 export default {
   props: {
@@ -74,18 +74,25 @@ export default {
   setup(props) {
     let cartState = reactive([]);
     let totalAmount = ref(0);
-
+    let cartCount = ref(0);
     let size = ref(null);
     let isAddedToCart = ref(false);
     let isSizeSelected = ref(false);
 
-    const shoeDetails = computed(() => {
-      return shoeData.find((shoe) => shoe.productId === parseInt(props.id));
-    });
-
-    console.log(cartState);
+    function getCartFromLocal() {
+      if (JSON.parse(localStorage.getItem('cartState')) !== null) {
+        cartState = JSON.parse(localStorage.getItem('cartState'));
+        totalAmount.value = JSON.parse(localStorage.getItem('totalAmount'));
+        cartCount.value = JSON.parse(localStorage.getItem('cartCount'));
+      } else {
+        cartState = reactive([]);
+        totalAmount.value = 0;
+        cartCount.value = 0;
+      }
+    }
 
     function addToCart() {
+      getCartFromLocal();
       if (size.value !== null) {
         cartState.push({
           productId: shoeDetails.value.productId,
@@ -97,15 +104,12 @@ export default {
           selectedSize: size.value,
         });
         totalAmount.value += shoeDetails.value.price;
+        cartCount.value += 1;
         showCartMessage(isAddedToCart);
         saveLocalCart();
-        console.log(cartState);
-        size.value = null;
-      } else {
-        showCartMessage(isSizeSelected);
-      }
+      } else showCartMessage(isSizeSelected);
     }
-    console.log(totalAmount.value);
+
     function showCartMessage(message) {
       message.value = true;
       setTimeout(() => {
@@ -114,22 +118,28 @@ export default {
     }
 
     function saveLocalCart() {
-      if (localStorage.getItem('cartState') !== []) {
-        JSON.parse(localStorage.getItem('cartState'));
-        totalAmount.value = JSON.parse(localStorage.getItem('totalAmount'));
-      }
-      totalAmount.value += shoeDetails.value.price;
       localStorage.setItem('cartState', JSON.stringify(cartState));
       localStorage.setItem('totalAmount', JSON.stringify(totalAmount.value));
+      localStorage.setItem('cartCount', JSON.stringify(cartCount.value));
     }
+
+    const shoeDetails = computed(() => {
+      return shoeData.find((shoe) => shoe.productId === parseInt(props.id));
+    });
+
+    onMounted(() => {
+      getCartFromLocal();
+      cartState = [];
+      cartCount.value = 0;
+    });
 
     return {
       cartState,
+      size,
       isAddedToCart,
       isSizeSelected,
-      shoeDetails,
       addToCart,
-      size,
+      shoeDetails,
     };
   },
 };
