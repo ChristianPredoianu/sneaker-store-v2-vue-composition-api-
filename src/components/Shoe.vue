@@ -10,6 +10,7 @@
     >
       <img :src="shoe.image" tag="img" alt class="shoe-card__image" />
     </router-link>
+
     <p class="shoe-card__model">{{ shoe.brand }} | {{ shoe.model }}</p>
     <p class="shoe-card__price">{{ shoe.price }} $</p>
   </div>
