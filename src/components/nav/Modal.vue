@@ -18,57 +18,82 @@
         <img tag="img" :src="item.image" alt class="product-container__image" />
         <div class="product-info">
           <ul class="product-info__list">
-            <li class="product-info__list-item">Brand: {{}}</li>
-            <li class="product-info__list-item">Model: {{}}</li>
-            <li class="product-info__list-item">Price: {{}} $</li>
-            <li class="product-info__list-item">Size: {{}}</li>
-            <li class="product-info__list-item">Color: {{}}</li>
+            <li class="product-info__list-item">Brand: {{ item.brand }}</li>
+            <li class="product-info__list-item">Model: {{ item.model }}</li>
+            <li class="product-info__list-item">Price: {{ item.price }} $</li>
+            <li class="product-info__list-item">
+              Size: {{ item.selectedSize }}
+            </li>
+            <li class="product-info__list-item">Color: {{ item.color }}</li>
           </ul>
 
-          <p class="product-info__remove" @click="findProductToRemove(index)">
+          <p
+            class="product-info__remove"
+            @click="removeProductFromCart(index, item)"
+          >
             Remove item
           </p>
         </div>
       </div>
-      <div class="checkout">
-        <h1 class="checkout__empty-message">
-          Your cart is empty!
-        </h1>
+      <div class="checkout" v-if="cart.length !== 0">
         <div>
           <p class="checkout__shipping">Shipping: Free</p>
-          <p class="checkout__amount">Total Price: {{}} $</p>
+          <p class="checkout__amount">Total Price: {{ totalAmount }} $</p>
         </div>
       </div>
-      <button class="modal-container__button">Checkout</button>
-      <p class="modal-container__close-modal">Close Cart</p>
+      <button class="modal-container__button" v-if="cart.length !== 0">
+        Checkout
+      </button>
+      <h1 class="modal-container__empty-cart-message" v-if="cart.length === 0">
+        Your cart is empty!
+      </h1>
+      <p class="modal-container__close-modal" @click="closeModal">Close Cart</p>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive } from 'vue';
 
 export default {
   setup(props, { emit }) {
-    let cart = reactive(JSON.parse(localStorage.getItem('cartState')));
+    let cart = reactive([]);
+    let totalAmount = ref(0);
+    let cartCount = ref(0);
+
+    function getCartFromLocal() {
+      cart = reactive(JSON.parse(localStorage.getItem('cartState')));
+      totalAmount = ref(JSON.parse(localStorage.getItem('totalAmount')));
+      cartCount = ref(JSON.parse(localStorage.getItem('cartCount')));
+    }
 
     function closeModal() {
       emit('close-modal', false);
     }
 
-    function findProductToRemove(index) {
-      if (localStorage.getItem('cartState') !== []) {
-        const found = cart.indexOf(index);
-        console.log(found);
-        cart.splice(found, 1);
-
-        localStorage.setItem('cartState', JSON.stringify(cart));
-      } else {
-        localStorage.clear();
-      }
+    function removeProductFromCart(index, item) {
+      cart.splice(index, 1);
+      totalAmount.value -= item.price;
+      cartCount.value -= 1;
+      saveLocalCart();
     }
 
-    return { closeModal, cart, findProductToRemove };
+    function saveLocalCart() {
+      localStorage.setItem('cartState', JSON.stringify(cart));
+      localStorage.setItem('totalAmount', JSON.stringify(totalAmount.value));
+      localStorage.setItem('cartCount', JSON.stringify(cartCount.value));
+    }
+
+    getCartFromLocal();
+
+    return {
+      cart,
+      totalAmount,
+      cartCount,
+      closeModal,
+      removeProductFromCart,
+      saveLocalCart,
+    };
   },
 };
 </script>
@@ -155,6 +180,15 @@ export default {
     }
   }
 
+  &__empty-cart-message {
+    font-size: 4rem;
+    margin-bottom: 5rem;
+
+    @include respond(phone) {
+      font-size: 2rem;
+    }
+  }
+
   &__close-modal {
     font-size: 2.5rem;
     padding: 3rem 0;
@@ -177,9 +211,10 @@ export default {
 }
 
 .product-info {
-  width: 50%;
+  width: 30%;
   &__list {
     list-style: none;
+    text-align: start;
   }
 
   &__list-item {
@@ -203,6 +238,7 @@ export default {
     margin-top: 1rem;
     font-size: 1.8rem;
     cursor: pointer;
+    text-align: start;
   }
 }
 
@@ -212,15 +248,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  &__empty-message {
-    font-size: 4rem;
-    margin-bottom: 5rem;
-
-    @include respond(phone) {
-      font-size: 2rem;
-    }
-  }
 
   &__shipping {
     margin-bottom: 2rem;
