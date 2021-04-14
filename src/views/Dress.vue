@@ -35,7 +35,7 @@ import NavBar from '@/components/nav/NavBar.vue';
 import SubNav from '@/components/nav/SubNav.vue';
 import FilterSection from '@/components/FilterSection.vue';
 import Shoe from '@/components/Shoe.vue';
-import { useShoeFilter } from '@/shared-logic/useShoeFilter';
+import { useShoeFilter } from '@/shared-logic/use-shoe-filter';
 
 export default {
   components: {
