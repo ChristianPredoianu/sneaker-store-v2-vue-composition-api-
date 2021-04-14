@@ -9,13 +9,18 @@
           @change="sendSelectedOptions"
         >
           <option value="All colors">All colors</option>
-          <option value="black">black</option>
-          <option value="brown">brown</option>
+          <option
+            v-for="color in getAvaliableColors"
+            :key="color.id"
+            value="color"
+            >{{ color }}</option
+          >
+          <!--   <option value="brown">brown</option>
           <option value="red">red</option>
           <option value="blue">blue</option>
           <option value="white">white</option>
           <option value="silver">silver</option>
-          <option value="cream">cream</option>
+          <option value="cream">cream</option> -->
         </select>
       </div>
 
@@ -26,16 +31,12 @@
           @change="sendSelectedOptions"
         >
           <option value="All sizes">All sizes</option>
-          <option value="36">36</option>
-          <option value="37">37</option>
-          <option value="38">38</option>
-          <option value="39">39</option>
-          <option value="40">40</option>
-          <option value="41">41</option>
-          <option value="42">42</option>
-          <option value="43">43</option>
-          <option value="44">44</option>
-          <option value="45">45</option>
+          <option
+            v-for="size in getAvaliableSizes"
+            :key="size.id"
+            :value="size"
+            >{{ size }}</option
+          >
         </select>
       </div>
     </section>
@@ -44,7 +45,8 @@
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
+import shoeData from '../../public/data.json';
 
 export default {
   setup(props, { emit }) {
@@ -57,9 +59,30 @@ export default {
       emit('options', selectOptions);
     }
 
+    const getAvaliableColors = computed(() => {
+      const avaliableColors = [];
+      shoeData.forEach((color) => {
+        avaliableColors.push(color.color);
+      });
+      return [...new Set(avaliableColors)];
+    });
+
+    const getAvaliableSizes = computed(() => {
+      const avaliableSizes = [];
+      shoeData.forEach((size) => {
+        avaliableSizes.push(...size.size);
+      });
+      return [...new Set(avaliableSizes)].sort();
+    });
+    console.log(getAvaliableColors);
     sendSelectedOptions();
 
-    return { selectOptions, sendSelectedOptions };
+    return {
+      selectOptions,
+      getAvaliableColors,
+      getAvaliableSizes,
+      sendSelectedOptions,
+    };
   },
 };
 </script>
