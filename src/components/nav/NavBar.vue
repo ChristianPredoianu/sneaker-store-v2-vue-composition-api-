@@ -21,9 +21,7 @@
           @click="toggleModal"
         ></fa>
 
-        <span class="cart__count">{{
-          cartCount !== 0 ? cartCount.length : cartCount
-        }}</span>
+        <span class="cart__count">{{ cartCount !== 0 ? cartCount : 0 }}</span>
       </div>
     </nav>
     <transition>
@@ -47,13 +45,21 @@ export default {
 
     //Since LocalStorage isn't reactive and Vue only watches data in components
     //This hack is not so pretty but gets the value from localstorage every x seconds
-    //Vuex would be an alternative for persisting cart state
-    /*  setInterval(() => {
-      localStorage.getItem('cartState') !== null
-        ? (cartCount.value = JSON.parse(localStorage.getItem('cartState')))
-        : (cartCount.value = 0);
-    }, 1000); */
+    function updateCartFromLocal() {
+      setInterval(() => {
+        if (JSON.parse(localStorage.getItem('cartCount')) !== null) {
+          getCartCount();
+        } else {
+          cartCount.value = 0;
+        }
+      }, 1000);
+    }
 
+    function getCartCount() {
+      cartCount.value = JSON.parse(localStorage.getItem('cartCount'));
+    }
+
+    getCartCount();
     function toggleModal() {
       isModalOpen.value = !isModalOpen.value;
     }
@@ -63,6 +69,7 @@ export default {
     }
 
     closeModal();
+    updateCartFromLocal();
 
     return { isModalOpen, toggleModal, closeModal, cartCount };
   },
