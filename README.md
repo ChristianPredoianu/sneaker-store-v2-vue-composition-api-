@@ -99,7 +99,6 @@ To get a local copy up and running follow these simple steps.
 ## Usage
 
 A user can navigate to different sections of the app. Men, women, sneakers or dress.
-
 Click on desired shoe, choose a size and add to cart. Open the cart and remove items if needed.
 
 
@@ -114,7 +113,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Christian Predoianu - [@linkedin](https://se.linkedin.com/in/christian-predoianu-369218157) - christianpredoianu@yahoo.com
-
 Project Link: [https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-](https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-)
 
 
