@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-">
-    <img src="public/nike-air-zoom.jpg" alt="Logo" width="200" height="150">
+    <img src="public/adidas-ultra.jpg" alt="Logo" width="200" height="150">
   </a>
 
   <h3 align="center">Sneaker Store</h3>
