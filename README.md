@@ -13,7 +13,7 @@
     <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://netclonevue.netlify.app/">View Demo</a>
+    <a href="https://sneaker-storev2.netlify.app/">View Demo</a>
     ·
     <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-/issues/issues">Report Bug</a>
     ·
