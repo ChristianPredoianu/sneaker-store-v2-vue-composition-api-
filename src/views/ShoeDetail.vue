@@ -1,6 +1,6 @@
 <template>
   <div class="details">
-    <NavBar @click="disableAddToCart" />
+    <NavBar />
     <SubNav />
     <hr />
     <section class="shoe-detail">
@@ -23,11 +23,7 @@
               }}</option></select
             >
           </form>
-          <button
-            class="cta-container__button "
-            @click="addToCart"
-            :disabled="isAddToCartDisabled"
-          >
+          <button class="cta-container__button " @click="addToCart">
             Add to cart
           </button>
 
@@ -81,7 +77,6 @@ export default {
     let cartCount = ref(0);
     let size = ref('Choose size');
     let isAddedToCart = ref(false);
-    let isAddToCartDisabled = ref(false);
     let isSizeSelected = ref(false);
 
     function getCartFromLocal() {
@@ -137,10 +132,6 @@ export default {
       localStorage.setItem('cartCount', JSON.stringify(cartCount.value));
     }
 
-    function disableAddToCart() {
-      isAddToCartDisabled.value = !isAddToCartDisabled.value;
-    }
-
     const shoeDetails = computed(() => {
       return shoeData.find((shoe) => shoe.productId === parseInt(props.id));
     });
@@ -152,8 +143,6 @@ export default {
     });
 
     return {
-      disableAddToCart,
-      isAddToCartDisabled,
       cartState,
       size,
       isAddedToCart,
@@ -257,6 +246,7 @@ export default {
   }
 
   &__select {
+    width: 17rem;
     font-size: 2rem;
     padding: 1rem;
     margin: 2rem;
