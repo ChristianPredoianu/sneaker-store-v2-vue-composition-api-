@@ -52,12 +52,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This project is made to mimic some of netflix functionality.
+This project is a mini shoe shop made with Vue.js
 
 ### Built With
 
-* [Vue.js](https://vuejs.org/)
-* [Firebase](https://firebase.google.com/)
+* [Vue.js] V3 Composition API(https://vuejs.org/)
+* [LocalStorage] 
 * [Sass](https://sass-lang.com/)
 * [Css](https://www.w3.org/Style/CSS/Overview.en.html)
 * [HTML](https://developer.mozilla.org/sv-SE/docs/Web/HTML)
@@ -80,7 +80,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/ChristianPredoianu/netflix-clone-vue.git
+   git clone https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-.git
    ```
 2. Install NPM packages
    ```sh
@@ -98,15 +98,9 @@ To get a local copy up and running follow these simple steps.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-To start using Netclone you have two options:
+A user can navigate to different sections of the app. Men, women, sneakers or dress.
 
-1.1 Sign in to Netclone with an existing account for demo purposes https://netclonevue.netlify.app/signIn:<br/>
-    <b>Username</b>: test@test.com  
-    <b>Password:</b> testingnetclone
-    => choose an existing profile
-   
-1.2 Signup to Netclone with a <b>dummy email</b> made up by you. E.g (john@whatever.com) It doesn't need to be a valid email. And choose a <b>password.</b> 
-    => Add a profile and continue with the selected profile.
+Click on desired shoe, choose a size and add to cart. Open the cart and remove items if needed.
 
 
 
