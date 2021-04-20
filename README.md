@@ -5,17 +5,17 @@
     <img src="src/assets/images/nike-air-zoom.jpg" alt="Logo" width="200" height="150">
   </a>
 
-  <h3 align="center">Netflix Clone Vue</h3>
+  <h3 align="center">Sneaker Store</h3>
 
   <p align="center">
-   A Netflix clone to mimic Netflix functionality. Made with Vue.js 
+   A shoe shop made with Vue.js 
     <br />
-    <a href="https://github.com/ChristianPredoianu/netflix-clone-vue"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://netclonevue.netlify.app/">View Demo</a>
     ·
-    <a href="https://github.com/ChristianPredoianu/netflix-clone-vue/issues/issues">Report Bug</a>
+    <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-/issues/issues">Report Bug</a>
     ·
    
   </p>
