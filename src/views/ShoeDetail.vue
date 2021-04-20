@@ -17,7 +17,7 @@
         <div class="cta-container">
           <form class="cta-container__form">
             <select class="cta-container__select" v-model="size">
-              <option :value="null">Choose size</option>
+              <option :value="size">{{ size }}</option>
               <option v-for="size in shoeDetails.size" :key="size.id">{{
                 size
               }}</option></select
@@ -79,7 +79,7 @@ export default {
     let cartState = reactive([]);
     let totalAmount = ref(0);
     let cartCount = ref(0);
-    let size = ref(null);
+    let size = ref('Choose size');
     let isAddedToCart = ref(false);
     let isAddToCartDisabled = ref(false);
     let isSizeSelected = ref(false);
@@ -98,7 +98,7 @@ export default {
 
     function addToCart() {
       getCartFromLocal();
-      if (size.value !== null) {
+      if (size.value !== 'Choose size') {
         cartState.push({
           productId: shoeDetails.value.productId,
           image: shoeDetails.value.image,
@@ -108,10 +108,11 @@ export default {
           color: shoeDetails.value.color,
           selectedSize: size.value,
         });
-        totalAmount.value += shoeDetails.value.price;
-        cartCount.value += 1;
         showCartMessage(isAddedToCart);
+        addTotalAmount(shoeDetails.value.price);
+        increaseCartCount();
         saveLocalCart();
+        size.value = 'Choose size';
       } else showCartMessage(isSizeSelected);
     }
 
@@ -120,6 +121,14 @@ export default {
       setTimeout(() => {
         message.value = false;
       }, 2000);
+    }
+
+    function addTotalAmount(price) {
+      totalAmount.value += price;
+    }
+
+    function increaseCartCount() {
+      cartCount.value += 1;
     }
 
     function saveLocalCart() {
