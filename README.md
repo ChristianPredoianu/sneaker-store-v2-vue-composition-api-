@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-">
-    <img src="src/assets/images/adidas-slim.png" alt="Logo" width="80" height="80">
+    <img src="src/assets/images/adidas-slim.jpg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Netflix Clone Vue</h3>
