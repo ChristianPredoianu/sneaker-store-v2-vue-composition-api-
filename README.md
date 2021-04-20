@@ -56,7 +56,7 @@ This project is a mini shoe shop made with Vue.js
 
 ### Built With
 
-* [Vue.js] V3 Composition API(https://vuejs.org/)
+* [Vue.js](https://vuejs.org/)
 * [LocalStorage] 
 * [Sass](https://sass-lang.com/)
 * [Css](https://www.w3.org/Style/CSS/Overview.en.html)
