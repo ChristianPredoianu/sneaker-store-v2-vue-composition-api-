@@ -48,18 +48,19 @@ export default {
     function updateCartFromLocal() {
       setInterval(() => {
         if (JSON.parse(localStorage.getItem('cartCount')) !== null) {
-          getCartCount();
+          getCartCountFromLocal();
         } else {
           cartCount.value = 0;
         }
       }, 1000);
     }
 
-    function getCartCount() {
+    function getCartCountFromLocal() {
       cartCount.value = JSON.parse(localStorage.getItem('cartCount'));
     }
 
-    getCartCount();
+    getCartCountFromLocal();
+
     function toggleModal() {
       isModalOpen.value = !isModalOpen.value;
     }
@@ -80,16 +81,16 @@ export default {
 .navbar {
   @include flex(flex, row, space-between, center);
   position: relative;
-  height: 7vh;
+  height: 15vh;
   background-color: $color-primary;
   color: $color-secondary;
 
-  @include respond(tab-port) {
-    height: 10vh;
-  }
-
   a {
     text-decoration: none;
+  }
+
+  @include respond(phone) {
+    justify-content: space-around;
   }
 }
 
@@ -110,7 +111,7 @@ export default {
     color: #ffffff;
 
     @include respond(phone) {
-      margin-left: 2rem;
+      margin-left: 1.5rem;
     }
 
     &:hover {
@@ -140,11 +141,20 @@ export default {
     @include respond(tab-port) {
       font-size: 2.5rem;
     }
+
+    @include respond(phone) {
+      width: 2rem;
+      margin-left: 0.5rem;
+    }
   }
 
   &__count {
     font-size: 2rem;
     margin-left: 2rem;
+
+    @include respond(phone) {
+      margin-left: 1rem;
+    }
   }
 }
 </style>

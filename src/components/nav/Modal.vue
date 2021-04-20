@@ -16,6 +16,7 @@
         :key="item.id"
       >
         <img tag="img" :src="item.image" alt class="product-container__image" />
+
         <div class="product-info">
           <ul class="product-info__list">
             <li class="product-info__list-item">Brand: {{ item.brand }}</li>
@@ -35,16 +36,27 @@
           </p>
         </div>
       </div>
-      <div class="checkout" v-if="cart.length !== 0">
+      <div class="checkout" v-if="cart !== []">
         <div>
-          <p class="checkout__shipping">Shipping: Free</p>
-          <p class="checkout__amount">Total Price: {{ totalAmount }} $</p>
+          <p class="checkout__shipping" v-if="Object.keys(cart).length !== 0">
+            Shipping: Free
+          </p>
+          <p class="checkout__amount" v-if="Object.keys(cart).length !== 0">
+            Total Price: {{ totalAmount }} $
+          </p>
         </div>
       </div>
-      <button class="modal-container__button" v-if="cart.length !== 0">
+      <button
+        class="modal-container__button"
+        v-if="Object.keys(cart).length !== 0"
+        disabled
+      >
         Checkout
       </button>
-      <h1 class="modal-container__empty-cart-message" v-if="cart.length === 0">
+      <h1
+        class="modal-container__empty-cart-message"
+        v-if="Object.keys(cart).length === 0"
+      >
         Your cart is empty!
       </h1>
       <p class="modal-container__close-modal" @click="closeModal">Close Cart</p>
@@ -57,16 +69,21 @@ import { ref, reactive } from 'vue';
 
 export default {
   setup(props, { emit }) {
-    let cart = reactive([]);
+    let cart = ref({});
+    const selectedAmount = ref(0);
     let totalAmount = ref(0);
     let cartCount = ref(0);
 
+    //Get the cart from localstorage
     function getCartFromLocal() {
-      cart = reactive(JSON.parse(localStorage.getItem('cartState')));
-      totalAmount = ref(JSON.parse(localStorage.getItem('totalAmount')));
-      cartCount = ref(JSON.parse(localStorage.getItem('cartCount')));
+      if (localStorage.getItem('cartState') !== null) {
+        cart = reactive(JSON.parse(localStorage.getItem('cartState')));
+        totalAmount = ref(JSON.parse(localStorage.getItem('totalAmount')));
+        cartCount = ref(JSON.parse(localStorage.getItem('cartCount')));
+      }
     }
 
+    //Emit close modal
     function closeModal() {
       emit('close-modal', false);
     }
@@ -78,16 +95,19 @@ export default {
       saveLocalCart();
     }
 
+    //Save cart to localstorage
     function saveLocalCart() {
       localStorage.setItem('cartState', JSON.stringify(cart));
       localStorage.setItem('totalAmount', JSON.stringify(totalAmount.value));
       localStorage.setItem('cartCount', JSON.stringify(cartCount.value));
     }
 
+    //Get cart from localstorage when created
     getCartFromLocal();
 
     return {
       cart,
+      selectedAmount,
       totalAmount,
       cartCount,
       closeModal,
@@ -115,7 +135,7 @@ export default {
 .modal-container {
   @include flex(flex, column, start, center);
   position: absolute;
-  top: 7rem;
+  top: 11vh;
   right: 20%;
   width: 55vw;
   height: 90vh;
@@ -128,10 +148,14 @@ export default {
     width: 80vw;
     right: 10%;
   }
+
+  @include respond(tab-port) {
+    top: 11vh;
+  }
+
   @include respond(phone) {
     width: 95vw;
-    right: 2%;
-    top: 12vh;
+    right: 3%;
   }
 
   &__close {
@@ -205,7 +229,7 @@ export default {
     width: 30%;
 
     @include respond(phone) {
-      margin-right: 5rem;
+      margin-right: 0rem;
     }
   }
 }
@@ -231,6 +255,10 @@ export default {
     input[type='number']::-webkit-inner-spin-button {
       opacity: 1;
     }
+
+    @include respond(phone) {
+      font-size: 1.5rem;
+    }
   }
 
   &__remove {
@@ -240,14 +268,16 @@ export default {
     cursor: pointer;
     text-align: start;
   }
+
+  @include respond(phone) {
+    width: 40%;
+  }
 }
 
 .checkout {
+  @include flex(flex, row, center, start);
   padding: 5rem;
   font-size: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 
   &__shipping {
     margin-bottom: 2rem;

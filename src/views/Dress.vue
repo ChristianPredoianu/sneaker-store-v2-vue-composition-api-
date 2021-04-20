@@ -17,7 +17,7 @@
       <h1
         v-if="
           filterShoesByType(
-            'sneakers',
+            'dress',
             selectedOptions.color,
             selectedOptions.size
           ).length === 0

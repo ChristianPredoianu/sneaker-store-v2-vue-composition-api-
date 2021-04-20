@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .shoes {
-  display: flex;
+  @include flex(flex, row, center, start);
   flex-wrap: wrap;
 }
 

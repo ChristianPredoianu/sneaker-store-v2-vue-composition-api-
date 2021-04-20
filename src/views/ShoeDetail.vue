@@ -1,9 +1,8 @@
 <template>
   <div class="details">
-    <NavBar />
+    <NavBar @click="disableAddToCart" />
     <SubNav />
     <hr />
-
     <section class="shoe-detail">
       <div class="img-container">
         <img :src="shoeDetails.image" class="img-container__image" alt />
@@ -24,9 +23,14 @@
               }}</option></select
             >
           </form>
-          <button class="cta-container__button" @click="addToCart">
+          <button
+            class="cta-container__button "
+            @click="addToCart"
+            :disabled="isAddToCartDisabled"
+          >
             Add to cart
           </button>
+
           <p class="cta-container__added-message" v-if="isAddedToCart">
             Product added to cart
           </p>
@@ -77,6 +81,7 @@ export default {
     let cartCount = ref(0);
     let size = ref(null);
     let isAddedToCart = ref(false);
+    let isAddToCartDisabled = ref(false);
     let isSizeSelected = ref(false);
 
     function getCartFromLocal() {
@@ -123,6 +128,10 @@ export default {
       localStorage.setItem('cartCount', JSON.stringify(cartCount.value));
     }
 
+    function disableAddToCart() {
+      isAddToCartDisabled.value = !isAddToCartDisabled.value;
+    }
+
     const shoeDetails = computed(() => {
       return shoeData.find((shoe) => shoe.productId === parseInt(props.id));
     });
@@ -134,6 +143,8 @@ export default {
     });
 
     return {
+      disableAddToCart,
+      isAddToCartDisabled,
       cartState,
       size,
       isAddedToCart,
@@ -187,23 +198,24 @@ export default {
     margin: 3rem auto;
     padding: 0;
   }
-  &__brand {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-  }
 
-  &__model {
+  &__brand {
     font-size: 3rem;
     margin-bottom: 1rem;
   }
 
-  &__prodno {
+  &__model {
     font-size: 2rem;
     margin-bottom: 1rem;
   }
 
+  &__prodno {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
   &__price {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: 2rem;
     font-weight: bold;
   }
@@ -272,6 +284,11 @@ export default {
 
     &:active {
       transform: translate(-2px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 

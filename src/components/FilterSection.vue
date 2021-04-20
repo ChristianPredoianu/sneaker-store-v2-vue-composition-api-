@@ -6,21 +6,15 @@
         <select
           class="avaliable-colors__select"
           v-model="selectOptions.color"
-          @change="sendSelectedOptions"
+          @change="emitSelectedOptions"
         >
           <option value="All colors">All colors</option>
           <option
             v-for="color in getAvaliableColors"
             :key="color.id"
-            value="color"
+            :value="color"
             >{{ color }}</option
           >
-          <!--   <option value="brown">brown</option>
-          <option value="red">red</option>
-          <option value="blue">blue</option>
-          <option value="white">white</option>
-          <option value="silver">silver</option>
-          <option value="cream">cream</option> -->
         </select>
       </div>
 
@@ -28,7 +22,7 @@
         <select
           class="avaliable-sizes__select"
           v-model="selectOptions.size"
-          @change="sendSelectedOptions"
+          @change="emitSelectedOptions"
         >
           <option value="All sizes">All sizes</option>
           <option
@@ -55,10 +49,12 @@ export default {
       size: 'All sizes',
     });
 
-    function sendSelectedOptions() {
+    //Emit the selected filter options to the views (Men, Women, Sneakers, Dress)
+    function emitSelectedOptions() {
       emit('options', selectOptions);
     }
 
+    //Get avaliable colors from shoeData.json, return unique values
     const getAvaliableColors = computed(() => {
       const avaliableColors = [];
       shoeData.forEach((color) => {
@@ -67,6 +63,7 @@ export default {
       return [...new Set(avaliableColors)];
     });
 
+    //Get avaliable sizes from shoeData.json, push all sizes, return unique values sorted
     const getAvaliableSizes = computed(() => {
       const avaliableSizes = [];
       shoeData.forEach((size) => {
@@ -74,14 +71,14 @@ export default {
       });
       return [...new Set(avaliableSizes)].sort();
     });
-    console.log(getAvaliableColors);
-    sendSelectedOptions();
+
+    emitSelectedOptions();
 
     return {
       selectOptions,
       getAvaliableColors,
       getAvaliableSizes,
-      sendSelectedOptions,
+      emitSelectedOptions,
     };
   },
 };
