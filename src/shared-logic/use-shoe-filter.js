@@ -16,14 +16,12 @@ export function useShoeFilter() {
 
   function filterShoesByGender(gender, color, size) {
     const shoes = shoesData.filter((shoe) => shoe.gender === gender);
-    const options = checkSelectedOptions(shoes, color, size);
-    return options;
+    return checkSelectedOptions(shoes, color, size);
   }
 
   function filterShoesByType(type, color, size) {
     const shoes = shoesData.filter((shoe) => shoe.type === type);
-    const options = checkSelectedOptions(shoes, color, size);
-    return options;
+    return checkSelectedOptions(shoes, color, size);
   }
 
   function checkSelectedOptions(shoes, color, size) {
