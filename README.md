@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-">
-    <img src="src/assets/images/nike-air-zoom.jpg" alt="Logo" width="200" height="150">
+    <img src="public/adidas-ultra.jpg" alt="Logo" width="200" height="150">
   </a>
 
   <h3 align="center">Sneaker Store</h3>
@@ -13,7 +13,7 @@
     <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://netclonevue.netlify.app/">View Demo</a>
+    <a href="https://sneaker-storev2.netlify.app/">View Demo</a>
     ·
     <a href="https://github.com/ChristianPredoianu/sneaker-store-v2-vue-composition-api-/issues/issues">Report Bug</a>
     ·
