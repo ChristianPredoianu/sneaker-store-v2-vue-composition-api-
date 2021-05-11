@@ -81,7 +81,7 @@ export default {
 .navbar {
   @include flex(flex, row, space-between, center);
   position: relative;
-  height: 15vh;
+  height: 10vh;
   background-color: $color-primary;
   color: $color-secondary;
 
