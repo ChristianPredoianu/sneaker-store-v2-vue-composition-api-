@@ -5,22 +5,24 @@
     <FilterSection @options="setSelectedOptions" />
     <section class="shoes">
       <Shoe
-        v-for="shoe in filterShoesByType(
-          'dress',
-          selectedOptions.color,
-          selectedOptions.size
-        )"
+        v-for="shoe in filterShoesByType({
+          type: 'dress',
+          color: selectedOptions.color,
+          size: selectedOptions.size,
+          filterBy: 'type',
+        })"
         :key="shoe.id"
         :shoe="shoe"
       />
 
       <h1
         v-if="
-          filterShoesByType(
-            'dress',
-            selectedOptions.color,
-            selectedOptions.size
-          ).length === 0
+          filterShoesByType({
+            type: 'dress',
+            color: selectedOptions.color,
+            size: selectedOptions.size,
+            filterBy: 'type',
+          }).length === 0
         "
         class="no-products-message"
       >

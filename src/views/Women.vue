@@ -5,22 +5,24 @@
     <FilterSection @options="setSelectedOptions" />
     <section class="shoes">
       <Shoe
-        v-for="shoe in filterShoesByGender(
-          'Women',
-          selectedOptions.color,
-          selectedOptions.size
-        )"
+        v-for="shoe in filterShoesByType({
+          type: 'Women',
+          color: selectedOptions.color,
+          size: selectedOptions.size,
+          filterBy: 'gender',
+        })"
         :key="shoe.id"
         :shoe="shoe"
       />
 
       <h1
         v-if="
-          filterShoesByGender(
-            'Women',
-            selectedOptions.color,
-            selectedOptions.size
-          ).length === 0
+          filterShoesByType({
+            type: 'Women',
+            color: selectedOptions.color,
+            size: selectedOptions.size,
+            filterBy: 'gender',
+          }).length === 0
         "
         class="no-products-message"
       >
@@ -49,10 +51,10 @@ export default {
     const {
       selectedOptions,
       setSelectedOptions,
-      filterShoesByGender,
+      filterShoesByType,
     } = useShoeFilter();
 
-    return { setSelectedOptions, selectedOptions, filterShoesByGender };
+    return { setSelectedOptions, selectedOptions, filterShoesByType };
   },
 };
 </script>
