@@ -14,14 +14,11 @@ export function useShoeFilter() {
     }
   }
 
-  function filterShoesByGender(gender, color, size) {
-    const shoes = shoesData.filter((shoe) => shoe.gender === gender);
-    return checkSelectedOptions(shoes, color, size);
-  }
-
-  function filterShoesByType(type, color, size) {
-    const shoes = shoesData.filter((shoe) => shoe.type === type);
-    return checkSelectedOptions(shoes, color, size);
+  function filterShoesByType(filterOptions) {
+    const shoes = shoesData.filter(
+      (shoe) => shoe[filterOptions.filterBy] === filterOptions.type
+    );
+    return checkSelectedOptions(shoes, filterOptions.color, filterOptions.size);
   }
 
   function checkSelectedOptions(shoes, color, size) {
@@ -40,7 +37,6 @@ export function useShoeFilter() {
   return {
     selectedOptions,
     setSelectedOptions,
-    filterShoesByGender,
     filterShoesByType,
   };
 }
