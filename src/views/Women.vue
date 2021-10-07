@@ -54,7 +54,11 @@ export default {
       filterShoesByType,
     } = useShoeFilter();
 
-    return { setSelectedOptions, selectedOptions, filterShoesByType };
+    return {
+      setSelectedOptions,
+      selectedOptions,
+      filterShoesByType,
+    };
   },
 };
 </script>
