@@ -1,3 +1,5 @@
+# Shoe Shop
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
